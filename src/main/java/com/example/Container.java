@@ -32,7 +32,7 @@ public class Container<T> {
         return size;
     }
 
-    public void clear() { //TODO:
+    public void clear() {
         for (int i = 0; i<size; i++) {
             data[i] = null;
         }
