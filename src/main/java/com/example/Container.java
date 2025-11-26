@@ -4,39 +4,35 @@ public class Container<T> {
     private Object[] data; //внутренний массив
     private int size;      //текущее количество элементов
     
-
-
-
-    /** hELP */
-    private Container() {
-        this(DEFAULT_CAPACITY);
-    }
-
-    private Container(int initialCapacity) {
-        if (initialCapacity<=0) {
-            throw new IllegalArgumentException("initialCapacity must be > 0");
-        }
-        this.data = new Object[initialCapacity];
-        this.size = 0;
+    public Container(){
+        data = new Object[10]; // емкость по умолчанию
+        size = 0;
     }
 
     public void add(T item) {
-        
+        ensureCapacity();
+        data[size++] = item;
     }
 
     public T get(int index) {
-
+        checkIndex(index);
+        return (T) data[index];
     }
 
     public void remove(int index) {
-
+        checkIndex(index);
+        for (int i = index; i<size-1; i++){
+            data[i] = data[i+1];
+        }
+        data[size-1] = null;
+        size--;
     }
 
     public int size() {
         return size;
     }
 
-    public void clear() {
+    public void clear() { //TODO:
         for (int i = 0; i<size; i++) {
             data[i] = null;
         }
@@ -51,6 +47,9 @@ public class Container<T> {
 
     private void ensureCapacity() {
         if (size == data.length) {
-            int newCapacity = data.length +}
+            Object[] newArray = new Object[data.length  * 2];
+            System.arraycopy(data, 0, newArray, 0, data.length);
+            data = newArray;
+        }
     }
 }
